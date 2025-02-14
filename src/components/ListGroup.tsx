@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { useState } from "react";
 
 function ListGroup() {
   let items = [
@@ -9,27 +9,10 @@ function ListGroup() {
     "Stockholm",
     "London",
   ];
-  let selectedIndex = 0;
   //items = [];
-  /*
-  if (items.length === 0)
-    return (
-      <>
-        <h1>List</h1>
-        <p>No item found</p>
-      </>
-    );
-*/
 
-  const message = items.length === 0 ? <p>No item found</p> : null;
-
-  // The benefit of using a function to the constant above is that it can have parameters. But if you dont have a parameter then it is better to use a constant
-  const getMessage = () => {
-    items.length === 0 ? <p>No item found</p> : null;
-  };
-
-  // Event Handler
-  const handleClick = (event: MouseEvent) => console.log(event);
+  // Hook. selectedIndex is a state variable
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
@@ -46,7 +29,7 @@ function ListGroup() {
                 : "list-group-item"
             }
             key={item}
-            onClick={handleClick}
+            onClick={() => setSelectedIndex(index)}
           >
             {item}
           </li>
