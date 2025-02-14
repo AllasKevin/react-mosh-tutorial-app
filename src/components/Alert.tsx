@@ -5,7 +5,7 @@ interface AlertProps {
 }
 
 const Alert = ({ children }: AlertProps) => {
-  return <div>Alert: {children}</div>;
+  return <div className="alert alert-primary">Alert: {children}</div>;
 };
 
 export default Alert;
