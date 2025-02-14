@@ -12,10 +12,12 @@ function ListGroup({ items, heading, onSelectItem }: ListGroupProps) {
   // Hook. selectedIndex is a state variable
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
+  const handleIfNoItems = () => items.length === 0 && <p>No item found</p>;
+
   return (
     <>
       <h1>{heading}</h1>
-      {items.length === 0 && <p>No item found</p>}
+      {handleIfNoItems()}
       <ul className="list-group">
         {items.map((item, index) => (
           <li
