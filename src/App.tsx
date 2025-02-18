@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
+import DissmissableAlert from "./components/DissmissableAlert";
 
 // This is a component
 function App() {
@@ -7,9 +9,16 @@ function App() {
     console.log(item);
   };
 
+  const [alertVisible, setAlertVisibility] = useState(false);
+
   return (
     <div>
-      <Button onClick={() => console.log("Clicked.")} color="primary">
+      {alertVisible && (
+        <DissmissableAlert onClose={() => setAlertVisibility(false)}>
+          My DissmissableAlert
+        </DissmissableAlert>
+      )}
+      <Button onClick={() => setAlertVisibility(true)} color="primary">
         BestestButton
       </Button>
     </div>
