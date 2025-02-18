@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import DissmissableAlert from "./components/DissmissableAlert";
+import ListGroup from "./components/ListGroup";
 
 // This is a component
 function App() {
@@ -9,18 +10,21 @@ function App() {
     console.log(item);
   };
 
-  const [alertVisible, setAlertVisibility] = useState(false);
-
+  let items = [
+    "New York",
+    "San Francisco",
+    "Tokyo",
+    "Shanghai",
+    "Stockholm",
+    "London",
+  ];
   return (
     <div>
-      {alertVisible && (
-        <DissmissableAlert onClose={() => setAlertVisibility(false)}>
-          My DissmissableAlert
-        </DissmissableAlert>
-      )}
-      <Button onClick={() => setAlertVisibility(true)} color="primary">
-        BestestButton
-      </Button>
+      <ListGroup
+        heading="Cities"
+        items={items}
+        onSelectItem={(item) => console.log(item)}
+      ></ListGroup>
     </div>
   );
 }
