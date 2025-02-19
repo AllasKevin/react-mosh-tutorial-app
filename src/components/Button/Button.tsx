@@ -1,4 +1,6 @@
 import { MouseEvent } from "react";
+import styles from "./Button.module.css";
+
 interface ButtonProps {
   children: string;
   color?: "primary" | "secondary" | "success";
@@ -7,7 +9,11 @@ interface ButtonProps {
 
 const Button = ({ children, color = "success", onClick }: ButtonProps) => {
   return (
-    <button type="button" className={"btn btn-" + color} onClick={onClick}>
+    <button
+      type="button"
+      className={[styles.btn, styles["btn-" + color]].join(" ")}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

@@ -1,31 +1,22 @@
 import { useState } from "react";
 import Alert from "./components/Alert";
-import Button from "./components/Button";
+import Button from "./components/Button/Button";
 import DissmissableAlert from "./components/DissmissableAlert";
 import ListGroup from "./components/ListGroup";
 import "./App.css";
 import { FcCalendar } from "react-icons/fc";
 import { BsFillCalendarFill } from "react-icons/bs";
 import "./components/Calendar.css";
+import MyButton from "./components/MyButton/MyButton";
 
 // This is a component
 function App() {
-  const handleSelectedItem = (item: string) => {
-    console.log(item);
-  };
-
-  let items = [
-    "New York",
-    "San Francisco",
-    "Tokyo",
-    "Shanghai",
-    "Stockholm",
-    "London",
-  ];
   return (
     <div>
-      <FcCalendar className="calendar-icon" color="red" size="300" />
-      <BsFillCalendarFill className="calendar-icon" size="300" />
+      <MyButton onClick={() => {}}>My Button</MyButton>
+      <Button color="primary" onClick={() => {}}>
+        His Button
+      </Button>
     </div>
   );
 }

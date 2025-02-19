@@ -1,0 +1,10 @@
+.my-button {
+    background-color: rgb(72, 230, 85);
+    padding: 5px;
+    border-radius: 5px;
+    font-family: "Courier New";
+    font-weight: bolder;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    display: inline-block; /* Ensures background applies properly */
+  }
