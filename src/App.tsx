@@ -14,15 +14,16 @@ function App() {
     console.log(item);
   };
 
-  const [person, setPerson] = useState({ firstName: "", lastName: "" });
+  const [drink, setDrink] = useState({ title: "Americano", price: 5 });
+
+  const HandleClick = () => {
+    setDrink({ ...drink, price: drink.price + 1 });
+  };
 
   return (
     <div>
-      <Like
-        onClick={() => {
-          console.log("Clicked!!");
-        }}
-      ></Like>
+      {drink.price}
+      <button onClick={HandleClick}>Click Me</button>
     </div>
   );
 }
