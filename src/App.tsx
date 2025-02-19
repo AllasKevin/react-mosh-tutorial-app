@@ -14,14 +14,8 @@ function App() {
     console.log(item);
   };
 
-  let items = [
-    "New York",
-    "San Francisco",
-    "Tokyo",
-    "Shanghai",
-    "Stockholm",
-    "London",
-  ];
+  const [person, setPerson] = useState({ firstName: "", lastName: "" });
+
   return (
     <div>
       <Like
