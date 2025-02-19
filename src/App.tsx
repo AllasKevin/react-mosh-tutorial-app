@@ -4,6 +4,9 @@ import Button from "./components/Button";
 import DissmissableAlert from "./components/DissmissableAlert";
 import ListGroup from "./components/ListGroup";
 import "./App.css";
+import { FcCalendar } from "react-icons/fc";
+import { BsFillCalendarFill } from "react-icons/bs";
+import "./components/Calendar.css";
 
 // This is a component
 function App() {
@@ -21,11 +24,8 @@ function App() {
   ];
   return (
     <div>
-      <ListGroup
-        heading="Cities"
-        items={items}
-        onSelectItem={(item) => console.log(item)}
-      ></ListGroup>
+      <FcCalendar className="calendar-icon" color="red" size="300" />
+      <BsFillCalendarFill className="calendar-icon" size="300" />
     </div>
   );
 }
