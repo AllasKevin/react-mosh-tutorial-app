@@ -3,6 +3,7 @@ import produce from "immer";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
 // This is a component
 function App() {
@@ -21,19 +22,9 @@ function App() {
   const changeQuantity = () => {};
 
   return (
-    <ExpandableText maxChars={50}>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore nostrum
-      esse eligendi molestiae hic unde, maxime totam corrupti eaque architecto
-      quibusdam saepe cum quaerat obcaecati ab laudantium dolor cupiditate
-      ratione at? Saepe, aliquid? Dolores ipsum minus inventore illum tempora
-      reiciendis necessitatibus delectus nihil in, cupiditate libero quas vero
-      illo possimus eius perferendis sequi labore sed non, quis nostrum maxime
-      qui magni! Corporis ipsa temporibus deserunt, veritatis cupiditate
-      laudantium illum soluta vero commodi odit hic alias eligendi rem esse,
-      expedita doloribus amet perferendis quam, provident ipsum rerum. Quaerat
-      reiciendis amet, quos omnis iste perspiciatis magni aliquam mollitia
-      voluptatum dolore? Adipisci, ducimus?babababa Lorem ipsum.
-    </ExpandableText>
+    <div>
+      <Form></Form>
+    </div>
   );
 }
 
