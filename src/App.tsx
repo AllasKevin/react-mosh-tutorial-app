@@ -9,20 +9,19 @@ function App() {
     console.log(item);
   };
 
-  const [cartItems, setCartItems] = useState(["Product1", "Product2"]);
+  const [game, setGame] = useState({ id: 1, player: { name: "John" } });
+  const [savedGame] = useState(game);
 
-  const addProduct = () => {
-    setCartItems([...cartItems, "Product" + (cartItems.length + 1)]);
+  const changeName = () => {
+    // It is more future proof to add '...game.player' since if we ever change the player-object in the future we dont also have to change it here
+    setGame({ ...game, player: { ...game.player, name: "Kevin" } });
+    console.log("originalGame " + savedGame.player.name);
   };
 
   return (
     <div>
-      <NavBar cartItemsCount={cartItems.length}></NavBar>
-      <Cart
-        cartItems={cartItems}
-        onClear={() => setCartItems([])}
-        onAdd={() => addProduct()}
-      ></Cart>
+      {game.player.name}
+      <button onClick={changeName}>Change Name</button>
     </div>
   );
 }
