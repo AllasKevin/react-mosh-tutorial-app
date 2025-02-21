@@ -9,19 +9,31 @@ function App() {
     console.log(item);
   };
 
-  const [pizza, setPizza] = useState({
-    name: "Kevins Special",
-    toppings: ["Mushroom"],
+  const [cart, setCart] = useState({
+    discount: 0.1,
+    items: [
+      { id: 1, title: "Product 1", quantity: 1 },
+      { id: 2, title: "Product 2", quantity: 1 },
+    ],
   });
 
-  const addTopping = () => {
-    setPizza({ ...pizza, toppings: [...pizza.toppings, "Bacon"] });
+  const changeQuantity = () => {
+    setCart({
+      ...cart,
+      items: cart.items.map((item) =>
+        item.id === 1 ? { ...item, quantity: item.quantity + 1 } : item
+      ),
+    });
   };
 
   return (
     <div>
-      <p>{pizza.toppings.toString()}</p>
-      <button onClick={addTopping}>Change Name</button>
+      <p>
+        {cart.items.map((item) => {
+          if (item.title === "Product 1") return item.quantity;
+        })}
+      </p>
+      <button onClick={changeQuantity}>Change Name</button>
     </div>
   );
 }
