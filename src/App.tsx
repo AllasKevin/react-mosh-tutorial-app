@@ -14,15 +14,24 @@ function App() {
     console.log(item);
   };
 
-  const [drink, setDrink] = useState({ title: "Americano", price: 5 });
+  const [customer, setCustomer] = useState({
+    name: "John",
+    address: {
+      city: "San Francisco",
+      zipCode: 94111,
+    },
+  });
 
   const HandleClick = () => {
-    setDrink({ ...drink, price: drink.price + 1 });
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 94112 },
+    });
   };
 
   return (
     <div>
-      {drink.price}
+      {customer.address.zipCode}
       <button onClick={HandleClick}>Click Me</button>
     </div>
   );
