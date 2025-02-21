@@ -1,12 +1,5 @@
 import { useState } from "react";
-import Alert from "./components/Alert";
-import DissmissableAlert from "./components/DissmissableAlert";
-import ListGroup from "./components/ListGroup";
-import "./App.css";
-import { FcCalendar } from "react-icons/fc";
-import { BsFillCalendarFill } from "react-icons/bs";
-import "./components/Calendar.css";
-import Like from "./components/Like";
+import produce from "immer";
 
 // This is a component
 function App() {
@@ -20,14 +13,23 @@ function App() {
   ]);
 
   const HandleClick = () => {
-    // Here a new array is created with a new bug object at the first index that has a modified value
-    // But the bug object at the second index will be the same object as in the original array, this will save memory.
-    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+    setBugs(
+      // draft is a proxy object for the bugs array so it is like a copy of the bugs array that records all changes to it.
+      // This will allow us to modify the bug object directly but behind the scenes 'immer' is switching it to a new object.
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 1);
+        if (bug) bug.fixed = true;
+      })
+    );
   };
 
   return (
     <div>
-      {bugs[0].fixed.toString()}
+      {bugs.map((bug) => (
+        <p key={bug.id}>
+          {bug.title} {bug.fixed ? "Fixed" : "New"}
+        </p>
+      ))}
       <button onClick={HandleClick}>Click Me</button>
     </div>
   );
