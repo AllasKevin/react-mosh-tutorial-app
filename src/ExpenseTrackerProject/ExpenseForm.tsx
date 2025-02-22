@@ -4,17 +4,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./ExpenseForm.css";
-
-interface item {
-  id: number;
-  description: string;
-  amount: number;
-  category: string;
-}
+import categories from "./categories";
 
 interface ExpenseFormProps {
-  items?: item[];
-  onAdd: (description: string, amount: number, category: string) => void;
+  onAdd: (item: FormData) => void;
 }
 
 const schema = z.object({
@@ -23,32 +16,28 @@ const schema = z.object({
     .min(3, { message: "Descrpition must be at least 3 characters." }),
   amount: z
     .number({ invalid_type_error: "Amount field is required." })
-    .min(1, { message: "Amount must be larger than 0." }),
-  category: z.string().min(1, { message: "Category is required." }),
+    .min(0.01, { message: "Amount must be larger than 0.01." })
+    .max(100_000),
+  category: z.enum(categories),
 });
 // Detta är istället för att skapa ett FormData interface
 type FormData = z.infer<typeof schema>;
 
-const categories = ["Groceries", "Utilities", "Entertainment"];
-
-const ExpenseForm = ({ onAdd, items }: ExpenseFormProps) => {
+const ExpenseForm = ({ onAdd }: ExpenseFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
-    setValue,
+    reset,
   } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
-  const selectedCategory = watch("category"); // Default text
-
-  //console.log(errors);
-
-  const onSubmit = (data: FieldValues) => {
-    onAdd(data.description, data.amount, data.category);
-  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onAdd(data);
+        reset();
+      })}
+    >
       <div className="mb-3">
         <label htmlFor="MyDescription" className="form-label">
           Description
@@ -82,31 +71,17 @@ const ExpenseForm = ({ onAdd, items }: ExpenseFormProps) => {
         <label htmlFor="MyCategory" className="form-label">
           Category
         </label>
-        <button
+        <select
           {...register("category")}
-          className="dropdown-toggle form-control .dropdown-toggle"
+          className="form-select"
           id="MyCategory"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
         >
-          {selectedCategory} {/* Selected value updates here */}
-        </button>
-        <ul className="dropdown-menu form-control">
           {categories.map((category) => (
-            <li key={category}>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() =>
-                  setValue("category", category, { shouldValidate: true })
-                } /* This sets selectedCategory */
-              >
-                {category}
-              </a>
-            </li>
+            <option key={category} value={category}>
+              {category}
+            </option>
           ))}
-        </ul>
+        </select>
       </div>
       <button
         disabled={!isValid}

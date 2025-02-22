@@ -6,30 +6,24 @@ import ExpandableText from "./components/ExpandableText";
 import Form from "./components/Form";
 import ExpenseForm from "./ExpenseTrackerProject/ExpenseForm";
 import ExpenseList from "./ExpenseTrackerProject/ExpenseList";
+import ExpenseFilter from "./ExpenseTrackerProject/ExpenseFilter";
+import categories from "./ExpenseTrackerProject/categories";
+
 interface item {
   id: number;
   description: string;
   amount: number;
   category: string;
 }
+
 // This is a component
 function App() {
-  const handleSelectedItem = (item: string) => {
-    console.log(item);
-  };
-
   const [items, setItems] = useState<item[]>([]);
 
-  const changeQuantity = () => {};
-
-  const addItem = (desc: string, amount: number, category: string) => {
-    const id = Math.random();
-    setItems((prevItems) => [
-      ...prevItems,
-      { id: id, description: desc, amount: amount, category: category },
-    ]);
-    console.log(items);
-  };
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const visibleItems = selectedCategory
+    ? items.filter((item) => item.category === selectedCategory)
+    : items;
 
   const deleteItem = (id: number) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -38,15 +32,17 @@ function App() {
 
   return (
     <div>
-      <ExpenseForm
-        onAdd={(description, amount, category) =>
-          addItem(description, amount, category)
-        }
-      ></ExpenseForm>
-      <ExpenseList
-        onDelete={(id) => deleteItem(id)}
-        items={items}
-      ></ExpenseList>
+      <div className="mb-5">
+        <ExpenseForm
+          onAdd={(item) => setItems([...items, { ...item, id: Math.random() }])}
+        />
+      </div>
+      <div className="mb-3">
+        <ExpenseFilter
+          onSelectCategory={(selected) => setSelectedCategory(selected)}
+        />
+      </div>
+      <ExpenseList onDelete={(id) => deleteItem(id)} items={visibleItems} />
     </div>
   );
 }
