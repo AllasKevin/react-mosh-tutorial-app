@@ -1,29 +1,52 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import produce from "immer";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
 import ExpandableText from "./components/ExpandableText";
 import Form from "./components/Form";
-
+import ExpenseForm from "./ExpenseTrackerProject/ExpenseForm";
+import ExpenseList from "./ExpenseTrackerProject/ExpenseList";
+interface item {
+  id: number;
+  description: string;
+  amount: number;
+  category: string;
+}
 // This is a component
 function App() {
   const handleSelectedItem = (item: string) => {
     console.log(item);
   };
 
-  const [cart, setCart] = useState({
-    discount: 0.1,
-    items: [
-      { id: 1, title: "Product 1", quantity: 1 },
-      { id: 2, title: "Product 2", quantity: 1 },
-    ],
-  });
+  const [items, setItems] = useState<item[]>([]);
 
   const changeQuantity = () => {};
 
+  const addItem = (desc: string, amount: number, category: string) => {
+    const id = Math.random();
+    setItems((prevItems) => [
+      ...prevItems,
+      { id: id, description: desc, amount: amount, category: category },
+    ]);
+    console.log(items);
+  };
+
+  const deleteItem = (id: number) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    console.log(items);
+  };
+
   return (
     <div>
-      <Form></Form>
+      <ExpenseForm
+        onAdd={(description, amount, category) =>
+          addItem(description, amount, category)
+        }
+      ></ExpenseForm>
+      <ExpenseList
+        onDelete={(id) => deleteItem(id)}
+        items={items}
+      ></ExpenseList>
     </div>
   );
 }

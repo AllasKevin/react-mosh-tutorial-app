@@ -1,0 +1,14 @@
+.dropdown-toggle {
+    text-align: left; /* Ensures text remains left-aligned */
+    padding-right: 2rem; /* Creates space for the arrow */
+    position: relative; /* Allows absolute positioning of arrow */
+    min-height: 38px; /* Ensures height matches Bootstrap form-control */
+
+  }
+  
+  .dropdown-toggle::after {
+    position: absolute; /* Allows exact positioning */
+    right: 10px; /* Moves arrow to the right */
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%); /* Ensures perfect vertical alignment */
+  }
