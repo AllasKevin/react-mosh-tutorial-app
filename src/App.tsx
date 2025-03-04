@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CanceledError } from "./services/api-client";
-import UserService, { User } from "./services/UserService";
+import UserService, { User } from "./services/userService";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -9,6 +9,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
+
     const { request, cancel } = UserService.getAll<User>();
     request
       .then((thisResponse) => {
@@ -48,12 +49,12 @@ function App() {
       });
   };
 
-  const update = (user: User) => {
+  const updateUser = (user: User) => {
     const originalUsers = [...users];
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    UserService.updateUser(updatedUser).catch((err) => {
+    UserService.update(updatedUser).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -63,7 +64,7 @@ function App() {
     <>
       {error && <p className="text-danger">{error}</p>}
       {isLoading && <div className="spinner-border"></div>}
-      <button className="btn btn-primary mb-3" onClick={addUser}>
+      <button className="btn btn-primary mb-3" onClick={createUser}>
         Add
       </button>
       <ul className="list-group">
